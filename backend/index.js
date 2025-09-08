@@ -43,7 +43,7 @@ app.use(requestLogger);
 
 app.use(sanitizeRequest);
 
-// CORS configuration
+// CORS configuration - UPDATED
 const corsOptions = {
 	origin: function (origin, callback) {
 		// Only log CORS details in development mode
@@ -51,11 +51,25 @@ const corsOptions = {
 			console.log('CORS check - Origin:', origin);
 		}
 
-		// Allow requests with no origin (like mobile apps or curl requests)
+		// Allow requests with no origin (like mobile apps, curl requests, or server-to-server)
 		if (!origin) return callback(null, true);
 
 		// Get allowed origins from config
 		const allowedOrigins = config.cors.origins;
+
+		// Add vercel.app domain dynamically if not already included
+		const vercelOrigin = 'https://vnr-keys.vercel.app';
+		if (!allowedOrigins.includes(vercelOrigin)) {
+			allowedOrigins.push(vercelOrigin);
+		}
+
+		// Allow all subdomains of vercel.app for flexibility
+		if (origin.endsWith('.vercel.app')) {
+			if (process.env.NODE_ENV === 'development') {
+				console.log('CORS: ALLOWED vercel.app subdomain', origin);
+			}
+			return callback(null, true);
+		}
 
 		if (allowedOrigins.includes(origin)) {
 			if (process.env.NODE_ENV === 'development') {
@@ -81,6 +95,9 @@ const corsOptions = {
 	],
 	exposedHeaders: ['Set-Cookie'], // Expose Set-Cookie header
 };
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 
 // Body parsing middleware
@@ -103,8 +120,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Health check endpoint
-app.get("/api/health", (req, res) => {
+// Health check endpoint with CORS headers
+app.get("/api/health", cors(corsOptions), (req, res) => {
 	res.json({
 		success: true,
 		message: "Server is running",
@@ -135,22 +152,22 @@ app.get("/", (req, res) => {
 	});
 });
 
-app.use("/api/auth", authRoutes);
-app.use("/api/dashboard", dashboardRoutes);
-app.use("/api/keys", keyRoutes);
-app.use("/api/api-keys", apiKeyRoutes);
-app.use("/api/audit", auditRoutes);
-app.use("/api/notifications", notificationRoutes);
-app.use("/api/about",about);
+app.use("/api/auth", cors(corsOptions), authRoutes);
+app.use("/api/dashboard", cors(corsOptions), dashboardRoutes);
+app.use("/api/keys", cors(corsOptions), keyRoutes);
+app.use("/api/api-keys", cors(corsOptions), apiKeyRoutes);
+app.use("/api/audit", cors(corsOptions), auditRoutes);
+app.use("/api/notifications", cors(corsOptions), notificationRoutes);
+app.use("/api/about", cors(corsOptions), about);
 
 // For local development - handle /be prefix routes to match Google OAuth redirect URIs
 if (process.env.NODE_ENV === 'development' || process.env.ENVIRONMENT === 'local') {
-	app.use("/be/api/auth", authRoutes);
-	app.use("/be/api/dashboard", dashboardRoutes);
-	app.use("/be/api/keys", keyRoutes);
-	app.use("/be/api/api-keys", apiKeyRoutes);
-	app.use("/be/api/notifications", notificationRoutes);
-	app.use("/be/api/about", about);
+	app.use("/be/api/auth", cors(corsOptions), authRoutes);
+	app.use("/be/api/dashboard", cors(corsOptions), dashboardRoutes);
+	app.use("/be/api/keys", cors(corsOptions), keyRoutes);
+	app.use("/be/api/api-keys", cors(corsOptions), apiKeyRoutes);
+	app.use("/be/api/notifications", cors(corsOptions), notificationRoutes);
+	app.use("/be/api/about", cors(corsOptions), about);
 }
 
 // Global error handler (must be after all routes)
@@ -167,7 +184,19 @@ if (process.env.NODE_ENV === "production") {
 // Configure Socket.IO with CORS
 const io = new Server(server, {
 	cors: {
-		origin: config.cors.origins,
+		origin: function(origin, callback) {
+			// Allow all vercel.app subdomains and configured origins
+			if (!origin || origin.endsWith('.vercel.app')) {
+				return callback(null, true);
+			}
+			
+			const allowedOrigins = config.cors.origins;
+			if (allowedOrigins.includes(origin)) {
+				callback(null, true);
+			} else {
+				callback(new Error('Not allowed by CORS'));
+			}
+		},
 		methods: ["GET", "POST"],
 		credentials: true
 	}
