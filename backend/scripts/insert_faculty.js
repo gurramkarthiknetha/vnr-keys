@@ -5,17 +5,955 @@ import { connectDB } from "../db/connectDB.js";
 
 dotenv.config();
 
-const facultyDummy = [
+const facutlyData = [
   {
     "email": "23071a7251@vnrvjiet.in",
-    "name": "bhavishwa",
+    "name": "Bhvais",
     "role": "faculty",
-    "department": "CSE-(CyS,DS)_and_AI&DS",
-    "facultyId": "47150404-19062423"
+    "department": "MECH",
+    "facultyId": "bahvsi123"
   },
+  {
+    "email": "rajaravikumar_bv@vnrvjiet.in",
+    "name": "Dr. B. V. R. Ravi Kumar",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "78150404-162446"
+  },
+  {
+    "email": "chennakesavarao_b@vnrvjiet.in",
+    "name": "Dr. B. Chennakesava Rao",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "0387-171025-174106"
+  },
+  {
+    "email": "psprasad@vnrvjiet.in",
+    "name": "Dr. P. S. Prasad",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "0429-150420-110211"
+  },
+  {
+    "email": "srinivasagupta_g@vnrvjiet.in",
+    "name": "Dr. G. Srinivasa Gupta",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "94150402-115132"
+  },
+  {
+    "email": "prasad_mvrd@vnrvjiet.in",
+    "name": "Dr. M. V. R. Durga Prasad",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "2867-150408-181929"
+  },
+  {
+    "email": "raghubabu_g@vnrvjiet.in",
+    "name": "Dr. G. Raghu Babu",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "4814-160217-165341"
+  },
+  {
+    "email": "balashowry_k@vnrvjiet.in",
+    "name": "Dr. K. Balashowry",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "8928-150414-150927"
+  },
+  {
+    "email": "venkataramana_e@vnrvjiet.in",
+    "name": "Dr. E. V. Ramana",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "2315-150407-224158"
+  },
+  {
+    "email": "shivrajyeole@vnrvjiet.in",
+    "name": "Dr. Y. Shivraj Narayan",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "63150328-184136"
+  },
+  {
+    "email": "satyanarayana_b@vnrvjiet.in",
+    "name": "Dr. B. Satyanarayana",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "30150401-172054"
+  },
+  {
+    "email": "ajaykumar_k@vnrvjiet.in",
+    "name": "Dr. K. Ajay Kumar",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "0962-160105-143546"
+  },
+  {
+    "email": "somayajulu_sr@vnrvjiet.in",
+    "name": "Sri. S. R. Somayajulu",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "0136-150409-155454"
+  },
+  {
+    "email": "kirankumar_n@vnrvjiet.in",
+    "name": "Dr. N. Kiran Kumar",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "7016-161024-152425"
+  },
+  {
+    "email": "jayaprakash_k@vnrvjiet.in",
+    "name": "Dr. K. Jaya Prakash",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "27150331-222623"
+  },
+  {
+    "email": "jayashri@vnrvjiet.in",
+    "name": "Dr. Jayashri Nair",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "82150331-140824"
+  },
+  {
+    "email": "arunaprabha_k@vnrvjiet.in",
+    "name": "Dr. K. Aruna Prabha",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "28150402-170250"
+  },
+  {
+    "email": "srinivasarao_ms@vnrvjiet.in",
+    "name": "Dr. M. S. Srinivasa Rao",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "97150402-161629"
+  },
+  {
+    "email": "sarathchandra_d@vnrvjiet.in",
+    "name": "Dr. D. Sarath Chandra",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "98150401-131028"
+  },
+  {
+    "email": "sahithi_vvd@vnrvjiet.in",
+    "name": "Dr. V. V. Durga Sahithi",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "98150402-111102"
+  },
+  {
+    "email": "srilatha_n@vnrvjiet.in",
+    "name": "Dr. N. Srilatha",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "35150402-094013"
+  },
+  {
+    "email": "krishnamurthy_k@vnrvjiet.in",
+    "name": "Dr. K. Krishna Murthy",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "5222-150429-155953"
+  },
+  {
+    "email": "prasadkumar_p@vnrvjiet.in",
+    "name": "Sri. P. Prasad Kumar",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "7889-150623-143937"
+  },
+  {
+    "email": "bhanumurthy_s@vnrvjiet.in",
+    "name": "Dr. S. Bhanu Murthy",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "1462-160127-101952"
+  },
+  {
+    "email": "sandeepraj_l@vnrvjiet.in",
+    "name": "Dr. L. Sandeep Raj",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "1905-151218-094538"
+  },
+  {
+    "email": "naresh_h@vnrvjiet.in",
+    "name": "Dr. H. Naresh",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "4606-160315-093029"
+  },
+  {
+    "email": "pnarendra_poly@vnrvjiet.in",
+    "name": "Sri. P. Narendra",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "4960-150409-175341"
+  },
+  {
+    "email": "saihari_sns@vnrvjiet.in",
+    "name": "Sri. S. N. S. Sai Hari",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "92150330-123607"
+  },
+  {
+    "email": "priyadarsini_ch@vnrvjiet.in",
+    "name": "Dr. CH. Priya Darsini",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "69150404-125508"
+  },
+  {
+    "email": "swetha_s@vnrvjiet.in",
+    "name": "Smt. S. Swetha",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "0488-161026-105046"
+  },
+  {
+    "email": "sivaramakrishna_v@vnrvjiet.in",
+    "name": "Dr. V. Siva Rama Krishna",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "61150406-170248"
+  },
+  {
+    "email": "malyadri_t@vnrvjiet.in",
+    "name": "Sri. T. Malyadri",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "46150404-141230"
+  },
+  {
+    "email": "naveenreddy_ch@vnrvjiet.in",
+    "name": "Dr. CH. Naveen Reddy",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "3702-160307-012243"
+  },
+  {
+    "email": "rajeswari_ch@vnrvjiet.in",
+    "name": "Smt. CH. Rajeswari",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "9488-150410-141152"
+  },
+  {
+    "email": "vsatyaprasad_s@vnrvjiet.in",
+    "name": "Dr. S. V. Satya Prasad",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "8633-230323-170632"
+  },
+  {
+    "email": "vsubhash_g@vnrvjiet.in",
+    "name": "Dr. G. V. Subhash",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "4121-230323-171149"
+  },
+  {
+    "email": "shivakumar_n@vnrvjiet.in",
+    "name": "Dr. N. Shiva Kumar",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "6665-210129-122501"
+  },
+  {
+    "email": "sujith_b@vnrvjiet.in",
+    "name": "Dr. Sujith Bobba",
+    "role": "faculty",
+    "department": "MECH",
+    "facultyId": "9360-240209-102108"
+  },
+  {
+    "email": "ithead@vnrvjiet.in",
+    "name": "Dr.N Mangathayaru",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "52150407-152647"
+  },
+  {
+    "email": "sureshreddy_g@vnrvjiet.in",
+    "name": "Dr.G Suresh Reddy",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "53150407-173532"
+  },
+  {
+    "email": "madhu_g@vnrvjiet.in",
+    "name": "Dr.G Madhu",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "16150406-123557"
+  },
+  {
+    "email": "srinivasarao_d@vnrvjiet.in",
+    "name": "Dr.D.Srinivasa Rao",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "55150404-164801"
+  },
+  {
+    "email": "jalender_b@vnrvjiet.in",
+    "name": "Dr.B.Jalender",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "3119-150408-102555"
+  },
+  {
+    "email": "mathurabai_b@vnrvjiet.in",
+    "name": "Dr.B.Mathura Bai",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "7525-150409-131915"
+  },
+  {
+    "email": "seshukumari_bv@vnrvjiet.in",
+    "name": "Dr.B.Venkata Seshu Kumari",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "78150407-162814"
+  },
+  {
+    "email": "rajeshkumar_g@vnrvjiet.in",
+    "name": "Dr.Gunupudi Rajesh Kumar",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "16150406-161926"
+  },
+  {
+    "email": "radhakrishna_v@vnrvjiet.in",
+    "name": "Dr.V.Radhakrishna",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "4481-150413-002634"
+  },
+  {
+    "email": "nchandrika_g@vnrvjiet.in",
+    "name": "Dr.G Naga Chandrika",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "00150404-163546"
+  },
+  {
+    "email": "renuka_k@vnrvjiet.in",
+    "name": "Mrs.Renuka Kondabala",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "50150406-113223"
+  },
+  {
+    "email": "ravi_t@vnrvjiet.in",
+    "name": "Mr.Ravi Tene",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "06150407-141256"
+  },
+  {
+    "email": "koteswararao_m@vnrvjiet.in",
+    "name": "Mr.M.Koteswara Rao",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "8894-150409-104541"
+  },
+  {
+    "email": "revathi_a@vnrvjiet.in",
+    "name": "Mrs.A.Revathi",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "75150407-111638"
+  },
+  {
+    "email": "kalyani_d@vnrvjiet.in",
+    "name": "Dr.D Kalyani",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "0124-150408-165221"
+  },
+  {
+    "email": "saritha_v@vnrvjiet.in",
+    "name": "Dr.Vemulapalli Saritha",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "0562-150507-130733"
+  },
+  {
+    "email": "susmitha_m@vnrvjiet.in",
+    "name": "Mrs.M.Susmitha",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "95150404-100034"
+  },
+  {
+    "email": "muralimohan_s@vnrvjiet.in",
+    "name": "Mr.S Murali Mohan",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "5421-171205-150019"
+  },
+  {
+    "email": "pavankumar_i@vnrvjiet.in",
+    "name": "Mr.I. Pavan Kumar",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "61150403-215716"
+  },
+  {
+    "email": "swathi_s@vnrvjiet.in",
+    "name": "Dr.S Swathi",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "1842-151217-125549"
+  },
+  {
+    "email": "srivani_b@vnrvjiet.in",
+    "name": "Dr.Srivani B",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "4205-160314-185109"
+  },
+  {
+    "email": "renudeepti_s@vnrvjiet.in",
+    "name": "Mrs.S.Renu Deepti",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "2371-160314-183654"
+  },
+  {
+    "email": "sreenivasarao_a@vnrvjiet.in",
+    "name": "Dr A.Sreenivasa Rao",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "70150405-151757"
+  },
+  {
+    "email": "rohini_ch@vnrvjiet.in",
+    "name": "Mrs.Ch.Rohini",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "5967-190129-124755"
+  },
+  {
+    "email": "dakshayanihimabindu_d@vnrvjiet.in",
+    "name": "Dr.Dakshayani Himabindu",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "38150330-175555"
+  },
+  {
+    "email": "sravanthi_k@vnrvjiet.in",
+    "name": "Dr.Keesara Sravanthi",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "1276-150413-172646"
+  },
+  {
+    "email": "raswitha_b@vnrvjiet.in",
+    "name": "Mrs Raswitha Bandi",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "7101-151222-101351"
+  },
+  {
+    "email": "balakesavareddy_p@vnrvjiet.in",
+    "name": "Mr P. Balakesava Reddy",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "74150406-120750"
+  },
+  {
+    "email": "sravankiran_v@vnrvjiet.in",
+    "name": "Mr V. Sravan Kiran",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "5931-170521-114846"
+  },
+  {
+    "email": "anandkumar_s@vnrvjiet.in",
+    "name": "Mr S.Anand Sharma",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "1909-161223-111715"
+  },
+  {
+    "email": "kamala_ch@vnrvjiet.in",
+    "name": "Kamala Challa",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "31150331-142854"
+  },
+  {
+    "email": "radhika_k@vnrvjiet.in",
+    "name": "K. Radhika",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "3159-150410-105846"
+  },
+  {
+    "email": "manojkumar_v@vnrvjiet.in",
+    "name": "Manoj Kumar Vemula",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "48150407-113020"
+  },
+  {
+    "email": "sravanthi_j@vnrvjiet.in",
+    "name": "Jakkula Sravanthi",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "3383-160307-153908"
+  },
+  {
+    "email": "bhaskarreddy_y@vnrvjiet.in",
+    "name": "Y.Bhaskar Reddy",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "6954-220711-152809"
+  },
+  {
+    "email": "yaminirani_r@vnrvjiet.in",
+    "name": "R.Yamini Rani",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "2028-160227-153135"
+  },
+  {
+    "email": "radha_m@vnrvjiet.in",
+    "name": "M.Radha",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "7626-221201-133625"
+  },
+  {
+    "email": "kumaraswamy_it@vnrvjiet.in",
+    "name": "Mr.S.KumaraSwamy",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "9299-161215-112342"
+  },
+  {
+    "email": "anoosha_s@vnrvjiet.in",
+    "name": "Mrs. S. Anoosha",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": "1110-160304-175027"
+  },
+  {
+    "email": "soujanya_a@vnrvjiet.in",
+    "name": "Soujanya Ambala",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "anuragavi_v@vnrvjiet.in",
+    "name": "V. Anu Ragavi",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "ramakrishna_it@vnrvjiet.in",
+    "name": "G.Ramakrishna",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "swetha_it@vnrvjiet.in",
+    "name": "P.Swetha",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "purushothamanaidu_c@vnrvjiet.in",
+    "name": "C.P Naidu",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "nagarjuna_it@vnrvjiet.in",
+    "name": "T.Nagarjuna",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "pswathi_it@vnrvjiet.in",
+    "name": "P.swathi",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "bsrinivasreddy_it@vnrvjiet.in",
+    "name": "B.Srinivasa Reddy",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "srikrishnakireeti_it@vnrvjiet.in",
+    "name": "V.Krishna Kireeti",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "akhil_it@vnrvjiet.in",
+    "name": "M.Akhil",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "",
+    "name": "K.Peerya",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "anwar_it@vnrvjiet.in",
+    "name": "Mohd Anwar",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "surekha_it@vnrvjiet.in",
+    "name": "Ravi Surekha",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "venkatakrishnaveni_it@vnrvjiet.in",
+    "name": "M.Venkata Krishnaveni",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "habeebali_it@vnrvjiet.in",
+    "name": "Mr.Mohammed Habeeb Ali",
+    "role": "faculty",
+    "department": "IT",
+    "facultyId": ""
+  },
+  {
+    "email": "aparna_p@vnrvjiet.in",
+    "name": "Dr.P.Aparna",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "83150406-133238"
+  },
+  {
+    "email": "pothanna_n@vnrvjiet.in",
+    "name": "Dr.N.Pothanna",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "08150406-151908"
+  },
+  {
+    "email": "srinivas_j@vnrvjiet.in",
+    "name": "Dr.J.Srinivas",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "56150404-160732"
+  },
+  {
+    "email": "jithenderreddy_g@vnrvjiet.in",
+    "name": "Dr.G.Jithender Reddy",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "78150406-142610"
+  },
+  {
+    "email": "swarankar_d@vnrvjiet.in",
+    "name": "Mr.D.Swarnakar",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "17150404-155038"
+  },
+  {
+    "email": "Sireesha_g@vnrvjiet.in",
+    "name": "Dr.G.Sireesha",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "77150405-130753"
+  },
+  {
+    "email": "ganeshkumar_v@vnrvjiet.in",
+    "name": "Dr.V.Ganesh kumar",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "5202-150409-163903"
+  },
+  {
+    "email": "kusuma_t@vnrvjiet.in",
+    "name": "Mrs.T.Kusuma",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "2593-161025-150330"
+  },
+  {
+    "email": "srilatha_r@vnrvjiet.in",
+    "name": "Dr R.Srilatha",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "0479-150409-110109"
+  },
+  {
+    "email": "rajashekar_p@vnrvjiet.in",
+    "name": "Dr. P. Raja Shekar",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "59150404-174945"
+  },
+  {
+    "email": "sivanageswararao_t@vnrvjiet.in",
+    "name": "Dr. T. Siva Nageswara Rao",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "0597-220518-143723"
+  },
+  {
+    "email": "pavankumarreddy_m@vnrvjiet.in",
+    "name": "Dr.M Pavan Kumar Reddy",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "34150401-113814"
+  },
+  {
+    "email": "shashikumar_ch@vnrvjiet.in",
+    "name": "Dr. Ch Shashi kumar",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "8733-150409-104445"
+  },
+  {
+    "email": "nagamalleswari_b@vnrvjiet.in",
+    "name": "Dr. B. Naga Malleswari",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "52150404-113043"
+  },
+  {
+    "email": "swapna_g@gmail.com",
+    "name": "Dr. G Swapna",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "8544-150429-203133"
+  },
+  {
+    "email": "prathyusha_b@vnrvjiet.in",
+    "name": "Dr.B.Prathyusha",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "51150405-061937"
+  },
+  {
+    "email": "arunakumari_n@vnrvjiet.in",
+    "name": "Dr.N.Aruna Kumari",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "93150404-131153"
+  },
+  {
+    "email": "pavankumar_kvln@vnrvjiet.in",
+    "name": "Mr. K.V.L.N. Pavan Kumar",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "1369-150409-215211"
+  },
+  {
+    "email": "anilkumar_k@vnrvjiet.in",
+    "name": "Mr. K.Anil Kumar",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "4323-150408-125542"
+  },
+  {
+    "email": "vllkusumakumari_ch@vnrvjiet.in",
+    "name": "Ms. CH V L L Kusuma Kumari",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "8093-150408-181828"
+  },
+  {
+    "email": "pavankumar_kvln@vnrvjiet.in",
+    "name": "B. Sri Pavani",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "9676-190109-122543"
+  },
+  {
+    "email": "madhavi_k@vnrvjiet.in",
+    "name": "Dr Kilaru Madhavi",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "4138-240104-134008"
+  },
+  {
+    "email": "arpitha_r@vnrvjiet.in",
+    "name": "Dr. R Arpitha",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": ""
+  },
+  {
+    "email": "vivekananda_r@vnrvjiet.in",
+    "name": "Dr. Vivekananda Rayanki",
+    "role": "faculty",
+    "department": "Mathematics",
+    "facultyId": "04150406-133535"
+  },
+  {
+    "email": "ashok_b@vnrvjiet.in",
+    "name": "Dr. Ashok Bhogi",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "22150404-163140"
+  },
+  {
+    "email": "srinivasarao_l@vnrvjiet.in",
+    "name": "Dr. L. Srinivasa Rao",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "03150404-165809"
+  },
+  {
+    "email": "rajini_t@vnrvjiet.in",
+    "name": "Dr. T. Rajani",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "9962-150408-222931"
+  },
+  {
+    "email": "pavankumar_p@vnrvjiet.in",
+    "name": "Dr. P. Pavan Kumar",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "51150404-143509"
+  },
+  {
+    "email": "rudramamba_ks@vnrvjiet.in",
+    "name": "Dr. K. S. Rudramamba",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "13150406-222541"
+  },
+  {
+    "email": "thirmal_ch@vnrvjiet.in",
+    "name": "Dr. C. Thirmal",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "1127-171117-124130"
+  },
+  {
+    "email": "sumithra_m@vnrvjiet.in",
+    "name": "Dr. M. Sumithra",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "9495-190503-174627"
+  },
+  {
+    "email": "sureshkumar_n@vnrvjiet.in",
+    "name": "Dr. N. Suresh Kumar",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "7592-150411-182704"
+  },
+  {
+    "email": "suresh_g@vnrvjiet.in",
+    "name": "Dr. G. Suresh",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "4687-200306-121628"
+  },
+  {
+    "email": "sureshkumar_nv@vnrvjiet.in",
+    "name": "Dr. N. V. Suresh Kumar",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "1682-200107-062514"
+  },
+  {
+    "email": "venkateswararao_g@vnrvjiet.in",
+    "name": "Dr. G. Venkateswara Rao",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "9499-210628-111023"
+  },
+  {
+    "email": "venkatasai_d@vnrvjiet.in",
+    "name": "Dr. Venkata Sai Dasari",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "6242-180704-182344"
+  },
+  {
+    "email": "srinivas_b@vnrvjiet.in",
+    "name": "Dr. B. Srinivas",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "3120-200307-004926"
+  },
+  {
+    "email": "ramesh_m@vnrvjiet.in",
+    "name": "Dr. M. Ramesh",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "3340-210707-162544"
+  },
+  {
+    "email": "nagendraprasad_d@vnrvjiet.in",
+    "name": "Dr. D. N. Prasad",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "4634-190503-161414"
+  },
+  {
+    "email": "jahangeer_n@vnrvjiet.in",
+    "name": "Dr. Nellutla Jahangeer",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": "96150407-144358"
+  },
+  {
+    "email": "krajinikanthreddy_hands@vnrvjiet.in",
+    "name": "Mr. K. Rajanikanth Reddy",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": ""
+  },
+  {
+    "email": "psatyanarayana_hands@vnrvjiet.in",
+    "name": "Mr. P. Satyanarayna",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": ""
+  },
+  {
+    "email": "Jyothi_hands@vnrvjiet.in",
+    "name": "Mrs .N. Jyothi",
+    "role": "faculty",
+    "department": "Physics",
+    "facultyId": ""
+  }
 ]
 
-const facutlyData = [
+const DfacutlyData = [
   {
     "email": "sunilkumar_t@vnrvjiet.in",
     "name": "Dr.T. Sunil Kumar",
@@ -2706,7 +3644,7 @@ async function insertFaculty() {
       // Generate tempId if facultyId is not present
       const facultyId = faculty.facultyId && faculty.facultyId.trim() !== "" 
         ? faculty.facultyId 
-        : `tempId_${index + 1}`;
+        : `tempId_${index + 101}`;
       
       return {
         email: faculty.email,

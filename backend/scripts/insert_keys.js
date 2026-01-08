@@ -4,6 +4,367 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// Valid departments from the Key model schema
+const VALID_DEPARTMENTS = [
+  "Accounts",
+  "Admission",
+  "Automobile",
+  "CAMS",
+  "Chemistry",
+  "Civil",
+  "CSE",
+  "CSE-AIML&IOT",
+  "CSE-(CyS,DS)_and_AI&DS",
+  "Director",
+  "EEE",
+  "ECE",
+  "EIE",
+  "English",
+  "GRO",
+  "HR",
+  "Humanity and sciences(H&S)",
+  "IQAC",
+  "IT",
+  "MECH",
+  "Other",
+  "PAAC",
+  "Placement",
+  "Principal",
+  "Purchase",
+  "RCC",
+  "SSC",
+  "VJ_Hub"
+];
+
+/**
+ * Normalizes department names to match the enum values or defaults to "Other"
+ * @param {string} department - The department name to normalize
+ * @returns {string} - Valid department name or "Other"
+ */
+const normalizeDepartment = (department) => {
+  if (!department) return "Other";
+  
+  // Trim and handle spaces
+  const trimmed = department.trim();
+  
+  // Check exact match (case-sensitive)
+  if (VALID_DEPARTMENTS.includes(trimmed)) {
+    return trimmed;
+  }
+  
+  // Check case-insensitive match
+  const caseInsensitiveMatch = VALID_DEPARTMENTS.find(
+    dept => dept.toLowerCase() === trimmed.toLowerCase()
+  );
+  
+  if (caseInsensitiveMatch) {
+    return caseInsensitiveMatch;
+  }
+  
+  // Common mappings for known variations
+  const departmentMap = {
+    'Physics': 'Other',
+    'Mathematics': 'Humanity and sciences(H&S)',
+    'Biochemistry': 'Other',
+    'Library': 'Other',
+    'Administration': 'Other',
+    'RCC': 'RCC',
+    'physics': 'Other',
+    'maths': 'Other',
+    'Math': 'Other',
+    'H&S': 'Humanity and sciences(H&S)'
+  };
+  
+  if (departmentMap[trimmed]) {
+    return departmentMap[trimmed];
+  }
+  
+  // Default to "Other" for unrecognized departments
+  console.warn(`⚠️  Unknown department "${department}" - defaulting to "Other"`);
+  return "Other";
+};
+
+const MkeysData = [
+  {
+    "keyNumber": "1",
+    "keyName": ["B419"],
+    "location": "Fourth Floor - Block B",
+    "description": "Physics Classroom",
+    "category": "classroom",
+    "department": "Physics",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["B418"],
+    "location": "Fourth Floor - Block B",
+    "description": "Physics Classroom",
+    "category": "classroom",
+    "department": "Physics",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["C308"],
+    "location": "Third Floor - Block C",
+    "description": "Physics Classroom",
+    "category": "classroom",
+    "department": "Physics",
+    "status": "available",
+    "block": "C",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["A314"],
+    "location": "Third Floor - Block A",
+    "description": "Physics Classroom",
+    "category": "classroom",
+    "department": "Physics",
+    "status": "available",
+    "block": "A",
+    "frequentlyUsed": false
+  },
+
+  {
+    "keyNumber": "1",
+    "keyName": ["P119"],
+    "location": "First Floor - Block P",
+    "description": "RCC Office",
+    "category": "other",
+    "department": "RCC",
+    "status": "available",
+    "block": "P",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["P303"],
+    "location": "Third Floor - Block P",
+    "description": "RCC Office",
+    "category": "other",
+    "department": "RCC",
+    "status": "available",
+    "block": "P",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["P302"],
+    "location": "Third Floor - Block P",
+    "description": "RCC Office",
+    "category": "other",
+    "department": "RCC",
+    "status": "available",
+    "block": "P",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["P301"],
+    "location": "Third Floor - Block P",
+    "description": "RCC Office",
+    "category": "other",
+    "department": "RCC",
+    "status": "available",
+    "block": "P",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["P322"],
+    "location": "Third Floor - Block P",
+    "description": "RCC Office",
+    "category": "other",
+    "department": "RCC",
+    "status": "available",
+    "block": "P",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["P325"],
+    "location": "Third Floor - Block P",
+    "description": "RCC Office",
+    "category": "other",
+    "department": "RCC",
+    "status": "available",
+    "block": "P",
+    "frequentlyUsed": false
+  },
+
+  {
+    "keyNumber": "1",
+    "keyName": ["B120"],
+    "location": "First Floor - Block B",
+    "description": "GRO Office",
+    "category": "other",
+    "department": "Administration",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["P310"],
+    "location": "Third Floor - Block P",
+    "description": "Students Dean Room",
+    "category": "other",
+    "department": "Administration",
+    "status": "available",
+    "block": "P",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["E01"],
+    "location": "Ground Floor - Block E",
+    "description": "Central Library",
+    "category": "library",
+    "department": "Library",
+    "status": "available",
+    "block": "E",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["C101"],
+    "location": "First Floor - Block C",
+    "description": "Central Library",
+    "category": "library",
+    "department": "Library",
+    "status": "available",
+    "block": "C",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["B115"],
+    "location": "First Floor - Block B",
+    "description": "CAMS Office",
+    "category": "CAMS",
+    "department": "Administration",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["B117"],
+    "location": "First Floor - Block B",
+    "description": "HR Office",
+    "category": "other",
+    "department": "Administration",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["B118"],
+    "location": "First Floor - Block B",
+    "description": "PRAC Office",
+    "category": "other",
+    "department": "Administration",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["B119"],
+    "location": "First Floor - Block B",
+    "description": "Accounts Office",
+    "category": "other",
+    "department": "Administration",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["B401"],
+    "location": "Fourth Floor - Block B",
+    "description": "Biochemistry Room",
+    "category": "other",
+    "department": "Biochemistry",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["B001"],
+    "location": "Ground Floor - Block B",
+    "description": "AO Office",
+    "category": "other",
+    "department": "Administration",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["B106"],
+    "location": "First Floor - Block B",
+    "description": "Principal Room",
+    "category": "other",
+    "department": "Administration",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["B102"],
+    "location": "First Floor - Block B",
+    "description": "Director Room",
+    "category": "other",
+    "department": "Administration",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  },
+
+  {
+    "keyNumber": "1",
+    "keyName": ["C310"],
+    "location": "Third Floor - Block C",
+    "description": "Mathematics Classroom",
+    "category": "classroom",
+    "department": "Mathematics",
+    "status": "available",
+    "block": "C",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["C309"],
+    "location": "Third Floor - Block C",
+    "description": "Mathematics Classroom",
+    "category": "classroom",
+    "department": "Mathematics",
+    "status": "available",
+    "block": "C",
+    "frequentlyUsed": false
+  },
+  {
+    "keyNumber": "1",
+    "keyName": ["B013"],
+    "location": "Ground Floor - Block B",
+    "description": "Store Room",
+    "category": "other",
+    "department": "Administration",
+    "status": "available",
+    "block": "B",
+    "frequentlyUsed": false
+  }
+]; 
+
 const keysData = [
   {
     "keyNumber": "1",
@@ -2208,7 +2569,7 @@ const keysData = [
     "status": "available",
     "block": "C",
     "frequentlyUsed": false
-  }
+  },
 ];
 
 // Connect to MongoDB and insert keys
@@ -2245,6 +2606,7 @@ const insertKeys = async () => {
           location: keyData.location,
           description: keyData.description || '',
           category: keyData.category,
+          // department: normalizeDepartment(keyData.department),
           department: keyData.department.replace(/ /g, '_'),
           status: keyData.status || 'available',
           block: keyData.block,

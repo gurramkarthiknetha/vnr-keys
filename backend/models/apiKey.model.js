@@ -33,9 +33,11 @@ const apiKeySchema = new mongoose.Schema(
         "ECE",
         "EIE",
         "English",
-        "MECH",
         "IT",
-        "Other"
+        "Mathematics",
+        "MECH",
+        "Other",
+        "Physics"
       ],
     },
     description: {
