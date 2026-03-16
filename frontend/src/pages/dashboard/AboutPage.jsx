@@ -9,13 +9,7 @@ const AboutPage = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const ENV = import.meta.env.VITE_ENVIRONMENT;
-  const API_URLS = {
-    local: import.meta.env.VITE_API_URL_LOCAL,
-    dev: import.meta.env.VITE_API_URL_DEV,
-    pro: import.meta.env.VITE_API_URL_PRO,
-  };
-  const API_URL = API_URLS[ENV] || API_URLS.local;
+  const API_URL = import.meta.env.VITE_API_URL || "https://keys.staysync.io/be/api";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +32,7 @@ const AboutPage = () => {
       }
     };
     fetchData();
-  }, [API_URL, ENV]);
+  }, [API_URL]);
 
   if (isLoading)
     return (

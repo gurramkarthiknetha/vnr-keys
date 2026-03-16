@@ -1,63 +1,38 @@
 /**
  * Environment-based configuration utility for backend
- * Supports: local, dev, pro environments
  */
 
 /**
- * Get the current environment
- * @returns {string} 'local' | 'dev' | 'pro'
+ * Get the current runtime environment.
+ * @returns {string} 'production' | 'development'
  */
-export const getEnvironment = () => {
-  const env = process.env.ENVIRONMENT?.toLowerCase();
-  if (!['local', 'dev', 'pro'].includes(env)) {
-    console.warn(`Invalid ENVIRONMENT: ${env}. Defaulting to 'local'`);
-    return 'local';
-  }
-  
-  return env;
-};
+export const getEnvironment = () => (
+  process.env.NODE_ENV === 'production' ? 'production' : 'development'
+);
 
 /**
- * Get client URL based on current environment
+ * Get client URL
  * @returns {string} The client/frontend URL
  */
 export const getClientUrl = () => {
-  const env = getEnvironment();
+  const clientUrl = process.env.CLIENT_URL;
 
-  const urls = {
-    local: process.env.CLIENT_URL_LOCAL,
-    dev: process.env.CLIENT_URL_DEV,
-    pro: process.env.CLIENT_URL_PRO
-  };
-
-  const clientUrl = urls[env];
-
-  // Validate that the URL is set
   if (!clientUrl) {
-    throw new Error(`Missing Client URL for environment: ${env}. Please set CLIENT_URL_${env.toUpperCase()} in .env file.`);
+    throw new Error('Missing CLIENT_URL in .env file.');
   }
 
   return clientUrl;
 };
 
 /**
- * Get backend URL based on current environment (for OAuth callbacks)
+ * Get backend URL (for OAuth callbacks)
  * @returns {string} The backend URL
  */
 export const getBackendUrl = () => {
-  const env = getEnvironment();
+  const backendUrl = process.env.BACKEND_URL;
 
-  const urls = {
-    local: process.env.BACKEND_URL_LOCAL,
-    dev: process.env.BACKEND_URL_DEV,
-    pro: process.env.BACKEND_URL_PRO
-  };
-
-  const backendUrl = urls[env];
-
-  // Validate that the URL is set
   if (!backendUrl) {
-    throw new Error(`Missing Backend URL for environment: ${env}. Please set BACKEND_URL_${env.toUpperCase()} in .env file.`);
+    throw new Error('Missing BACKEND_URL in .env file.');
   }
 
   return backendUrl;
@@ -69,14 +44,6 @@ export const getBackendUrl = () => {
  */
 export const getOAuthCallbackUrl = () => {
   const backendUrl = getBackendUrl();
-  const env = getEnvironment();
-
-  // For local environment, use direct /api path (no /be prefix)
-  if (env === 'local') {
-    return `${backendUrl}/api/auth/google/callback`;
-  }
-
-  // For dev/pro environments, check if /be is already in the URL
   return backendUrl.includes('/be')
     ? `${backendUrl}/api/auth/google/callback`
     : `${backendUrl}/be/api/auth/google/callback`;
@@ -88,30 +55,19 @@ export const getOAuthCallbackUrl = () => {
  */
 export const getCorsOrigins = () => {
   const env = getEnvironment();
-
-  // Get base origins from environment variables
   const baseOrigins = [];
 
-  // Add environment-specific client URLs
-  if (process.env.CLIENT_URL_LOCAL) baseOrigins.push(process.env.CLIENT_URL_LOCAL);
-  if (process.env.CLIENT_URL_DEV) {
-    baseOrigins.push(process.env.CLIENT_URL_DEV);
-    baseOrigins.push(process.env.CLIENT_URL_DEV + '/be');
-  }
-  if (process.env.CLIENT_URL_PRO) {
-    baseOrigins.push(process.env.CLIENT_URL_PRO);
-    baseOrigins.push(process.env.CLIENT_URL_PRO + '/be');
+  if (process.env.CLIENT_URL) {
+    baseOrigins.push(process.env.CLIENT_URL);
   }
 
-  // Add additional CORS origins from environment variables if they exist
   if (process.env.CORS_ADDITIONAL_ORIGINS) {
     const additionalOrigins = process.env.CORS_ADDITIONAL_ORIGINS.split(',').map(origin => origin.trim());
     baseOrigins.push(...additionalOrigins);
   }
 
-  // For local environment, add common development ports
   const envOrigins = {
-    local: [
+    development: [
       'http://localhost:3203',
       'http://localhost:3204',
       'http://localhost:3205',
@@ -124,14 +80,7 @@ export const getCorsOrigins = () => {
       'https://vnr-keys.vercel.app',
       'https://vnr-keys-1.onrender.com'
     ],
-    dev: [
-      'http://localhost:3203', // For local development against dev backend
-      'http://localhost:3204',
-      'http://localhost:5173',
-      'https://vnr-keys.vercel.app',
-      'https://vnr-keys-1.onrender.com'
-    ],
-    pro: []
+    production: []
   };
 
   const allOrigins = [...baseOrigins, ...envOrigins[env]];
@@ -179,7 +128,7 @@ export const config = {
 };
 
 // Log configuration in development
-if (config.environment === 'local' || config.server.nodeEnv === 'development') {
+if (config.environment === 'development') {
   console.log('🔧 BACKEND CONFIG:', {
     environment: config.environment,
     clientUrl: config.urls.client,

@@ -132,8 +132,8 @@ app.use("/api/about", about);
 app.use("/api/logbook", logbookRoutes);
 app.use("/api/qr", qrRoutes);
 
-// For local development - handle /be prefix routes to match Google OAuth redirect URIs
-if (process.env.NODE_ENV === 'development' || process.env.ENVIRONMENT === 'local') {
+// In non-production environments, also handle /be-prefixed routes.
+if (process.env.NODE_ENV !== 'production') {
 	app.use("/be/api/auth", authRoutes);
 	app.use("/be/api/dashboard", dashboardRoutes);
 	app.use("/be/api/keys", keyRoutes);
@@ -214,7 +214,7 @@ server.listen(PORT, async () => {
 	console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 	console.log("🔌 Socket.IO server ready for real-time updates");
 
-	if (config.server.nodeEnv === 'development' || config.environment === 'local') {
+	if (config.environment === 'development') {
 		console.log(`📱 Frontend URL: https://vnr-keys.vercel.app`);
 		console.log(`🔗 API Health: https://vnr-keys-1.onrender.com/api/health`);
 	}

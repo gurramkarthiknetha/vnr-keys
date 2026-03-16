@@ -8,19 +8,12 @@ async function checkEnvironment() {
     console.log("=== Environment Variables Check ===");
     console.log("NODE_ENV:", process.env.NODE_ENV || "undefined");
     console.log("PORT:", process.env.PORT || "undefined");
-    console.log("ENVIRONMENT:", process.env.ENVIRONMENT || "undefined");
     console.log("");
 
-    console.log("=== Client URLs ===");
-    console.log("CLIENT_URL_LOCAL:", process.env.CLIENT_URL_LOCAL || "undefined");
-    console.log("CLIENT_URL_DEV:", process.env.CLIENT_URL_DEV || "undefined");
-    console.log("CLIENT_URL_PRO:", process.env.CLIENT_URL_PRO || "undefined");
+    console.log("=== URLs ===");
+    console.log("CLIENT_URL:", process.env.CLIENT_URL || "undefined");
     console.log("");
-
-    console.log("=== Backend URLs ===");
-    console.log("BACKEND_URL_LOCAL:", process.env.BACKEND_URL_LOCAL || "undefined");
-    console.log("BACKEND_URL_DEV:", process.env.BACKEND_URL_DEV || "undefined");
-    console.log("BACKEND_URL_PRO:", process.env.BACKEND_URL_PRO || "undefined");
+    console.log("BACKEND_URL:", process.env.BACKEND_URL || "undefined");
     console.log("");
 
     console.log("=== Additional Configuration ===");

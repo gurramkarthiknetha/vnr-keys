@@ -44,16 +44,11 @@ console.log("================================");
 
 // Define expected environment variables
 const expectedVars = [
-    'ENVIRONMENT',
     'PORT',
     'MONGO_URI',
     'JWT_SECRET',
-    'CLIENT_URL_LOCAL',
-    'CLIENT_URL_DEV', 
-    'CLIENT_URL_PRO',
-    'BACKEND_URL_LOCAL',
-    'BACKEND_URL_DEV',
-    'BACKEND_URL_PRO',
+    'CLIENT_URL',
+    'BACKEND_URL',
     'GOOGLE_CLIENT_ID',
     'GOOGLE_CLIENT_SECRET',
     'EMAIL_HOST',

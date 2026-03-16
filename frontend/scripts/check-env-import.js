@@ -44,15 +44,10 @@ console.log("===================================");
 
 // Define expected Vite environment variables
 const expectedViteVars = [
-    'VITE_ENVIRONMENT',
     'VITE_APP_NAME',
     'VITE_APP_VERSION',
-    'VITE_API_URL_LOCAL',
-    'VITE_API_URL_DEV',
-    'VITE_API_URL_PRO',
-    'VITE_FRONTEND_URL_LOCAL',
-    'VITE_FRONTEND_URL_DEV',
-    'VITE_FRONTEND_URL_PRO'
+    'VITE_API_URL',
+    'VITE_FRONTEND_URL'
 ];
 
 // Since this is a Node.js script, we can't access import.meta.env
@@ -87,35 +82,19 @@ expectedViteVars.forEach(varName => {
 console.log("\n🔧 Testing Configuration Logic:");
 console.log("===============================");
 
-// Simulate the frontend config logic
-const environment = envVars['VITE_ENVIRONMENT'] || 'local';
-console.log(`🌍 Environment: ${environment}`);
-
-const apiUrls = {
-    local: envVars['VITE_API_URL_LOCAL'],
-    dev: envVars['VITE_API_URL_DEV'],
-    pro: envVars['VITE_API_URL_PRO']
-};
-
-const frontendUrls = {
-    local: envVars['VITE_FRONTEND_URL_LOCAL'],
-    dev: envVars['VITE_FRONTEND_URL_DEV'],
-    pro: envVars['VITE_FRONTEND_URL_PRO']
-};
-
-const selectedApiUrl = apiUrls[environment];
-const selectedFrontendUrl = frontendUrls[environment];
+const selectedApiUrl = envVars['VITE_API_URL'];
+const selectedFrontendUrl = envVars['VITE_FRONTEND_URL'];
 
 if (selectedApiUrl) {
-    console.log(`✅ API URL for ${environment}: ${selectedApiUrl}`);
+    console.log(`✅ API URL: ${selectedApiUrl}`);
 } else {
-    console.log(`❌ API URL for ${environment}: Missing`);
+    console.log('❌ API URL: Missing');
 }
 
 if (selectedFrontendUrl) {
-    console.log(`✅ Frontend URL for ${environment}: ${selectedFrontendUrl}`);
+    console.log(`✅ Frontend URL: ${selectedFrontendUrl}`);
 } else {
-    console.log(`❌ Frontend URL for ${environment}: Missing`);
+    console.log('❌ Frontend URL: Missing');
 }
 
 console.log("\n📊 Summary:");

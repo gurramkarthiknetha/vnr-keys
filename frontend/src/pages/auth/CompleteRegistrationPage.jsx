@@ -186,10 +186,10 @@ const CompleteRegistrationPage = () => {
 
     setIsLoading(true);
     try {
-      const API_URL = import.meta.env.VITE_API_URL_LOCAL
-        ? `${import.meta.env.VITE_API_URL_LOCAL}/auth`
+      const API_URL = import.meta.env.VITE_API_URL
+        ? `${import.meta.env.VITE_API_URL}/auth`
         : import.meta.env.MODE === "dev"
-        ? "http://localhost:6203/api/auth"
+        ? "https://keys.staysync.io/be/api/auth"
         : "/api/auth";
       const response = await fetch(`${API_URL}/complete-registration`, {
         method: "POST",
